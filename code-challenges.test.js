@@ -100,7 +100,7 @@ input 1: object
 output 1: "value is divisible by three"
 output 2: "value is not divisible by three"
 --------- STEPS/METHODS:
-1. Declare a function called isObjectEven that will accept object as a parameter.
+1. Declare a function called isObjectEven that will accept an object as a parameter.
 2. Create an empty variable (tempVar) that will hold an array containing only the value of the key:value pair using Object.values().
 3. Use a comparison operator to determine if the value of the resuting array is divisible by three.
     3-1. If it IS divisible, return: `${tempVar} is divisible by three`
@@ -151,6 +151,8 @@ describe("capitalizeArray", () => {
   // Expected output: ["Streetlamp", "Potato", "Teeth", "Conclusion", "Nephew"]
   const randomNouns2 = ["temperature", "database", "chopsticks", "mango"];
   // Expected output: ["Temperature", "Database", "Chopsticks", "Mango"]
+  const randomNouns3 = ["TEMPERATURE", "DATABASE", "CHOPSTICKS", "MANGO"];
+  // Expected output: ["Temperature", "Database", "Chopsticks", "Mango"]
 
   it(`Takes in an array of words and returns an array with all the words capitalized.`, () => {
     expect(capitalizeArray(randomNouns1)).toEqual([
@@ -166,6 +168,12 @@ describe("capitalizeArray", () => {
       "Chopsticks",
       "Mango",
     ]);
+    expect(capitalizeArray(randomNouns3)).toEqual([
+      "Temperature",
+      "Database",
+      "Chopsticks",
+      "Mango",
+    ]);
   });
 });
 
@@ -176,7 +184,7 @@ describe("capitalizeArray", () => {
 
 /*
 --------- FUNCTION INFORMATION:
-Describe what the function will do: The function will accept an array, then iterate through the array to return all its strings with the first letter capitalized.
+Describe what the function will do: The function will accept an array, then iterate through the array to return all its' strings with the first letter capitalized.
 Function Name: capitalizeArray
 Function Parameter(s): 1, array
 --------- INPUT / OUTPUT:
@@ -185,14 +193,14 @@ output 1: an array of strings, with the first letter in each string capitalized.
 
 --------- STEPS/METHODS:
 1. Declare a function called capitalizeArray which will accept an array.
-2. Declare a temporary variable inside of the function to store the updated data of the array.
-3. Use .map() on the array to iterate through the elements, then use .charAt(0) and .toUpperCase() to capitalize the first letter of each string. 
-4. Use .slice() to remove the original first letter of the element that's currently being iterated, then add it to the uppercase letter.
+
+2. Use .map() on the array to iterate through the elements, then use .charAt(0) and .toUpperCase() to capitalize the first letter of each string. 
+3. Use .slice() to remove the original first letter of the element that's currently being iterated, then add the end of the string to the uppercase letter.
 */
 
 const capitalizeArray = (array) => {
   return array.map((value) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   });
 };
 // Result: Test Suites: 1 passed, 1 total
@@ -209,7 +217,7 @@ But that returned an error specifying that it wasn't a function, so I had to do 
 //     return element.charAt(0).toUpperCase() + element.slice(1).toLowerCase();
 //   });
 // }
-So, after seeing this, I realized I could use the addition operator to simply add the first letter to the latter half of the word by applying .charAt(0).toUpperCase() to the first letter, then .slice(1) to remove that letter and return the rest of the array.
+So, after seeing this, I realized I could use the addition operator to simply add the first letter to the latter half of the word by applying .charAt(0).toUpperCase() to the first letter, then .slice(1) to remove that letter and return the rest of the array. I also chose to leave in .toLowerCase(), because I want to stick with the idea of making the function as reusable as possible. We know the strings that we were given are all lowercase, but what if we put in strings that were all uppercase? Including .toLowerCase() will ensure that no matter what string we give this function, it will ALWAYS return that string with ONLY the first letter capitalized. I included that scenario in my test, just to confirm, and the function still passed!
 */
 
 // --------------------3) Create a function that takes in a string and logs the index of the first vowel.
@@ -262,7 +270,7 @@ const logFirstVowel = (string) => {
     ) {
       return i;
       // } else return `${string} does not contain a vowel.`;
-      // I had also tried an else if statement with the !== operator, but NEITHER of those work, because it will stop IMMEDIATELY if the second index of the word happens to not be a vowel. So, I have to put the extra return outside of the loop in order to ensure that it would iterate through the entire string first, THEN return the string below if it doesn't find a vowel.
+      // I had also tried an else if statement with the !== operator, but NEITHER of those work, because it will stop IMMEDIATELY if current index of the word happens to not be a vowel. So, I have to put the extra return outside of the loop in order to ensure that it would iterate through the entire string first, THEN return the string below if it doesn't find a vowel.
     }
   }
   return `${string} does not contain a vowel.`;
@@ -273,5 +281,5 @@ const logFirstVowel = (string) => {
 /*
 After a LOT of overthinking this one (thinking about converting it to an array and using .filter(), realizing that if I did that I wouldn't be able to access the original index, looking up various string/array methods, etc....), I took Tricia's advice to try and solve it the simplest way... Using a for loop.
 
-That's when I realized that for this SPECIFIC case, the for loop would actually be the perfect fit. It will automatically go through the index of each index of the string, and stop at the first instance of a vowel when I use the OR operator. Based on my research, while there are other ways to make this happen, I believe in this instance the for loop is actually the easiest and simplest method that needs the least amount of code.
+That's when I realized that for this SPECIFIC case, the for loop would actually be the perfect fit since our input is a string, and we want our output to ALSO be a string. (Despite my overthinking, there's really no need to convert the string to something else and then back!) The for loop will automatically go through each index of the string, and stop at the first instance of a vowel when I use the OR operator. Based on my research, while there are other ways to make this happen, I believe in this instance the for loop is actually the easiest and simplest method that needs the least amount of code.
 */
